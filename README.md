@@ -3,16 +3,15 @@ Script python para remover coleções temporárias no mongodb de acordo com nome
 
 
 # Informações sobre criação do usuário no MongoDB usado pela aplicação
-'''
+
 db.getSiblingDB('admin').createUser(
    {
      user: "app.managercolls",
      pwd: "yourpassword",
-     
      roles: [{"role":"readWriteAnyDatabase","db":"admin"}]
    }
 );
-'''
+
 
 
 
