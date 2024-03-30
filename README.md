@@ -13,6 +13,7 @@ db.getSiblingDB('admin').createUser(
 );
 
 
+
 # Informações das pastas e arquivos
 
 Arquivo listCollectionsTemp.py - Script usado para listar nos databases do mongodb (db_EEEEE) as collections que com nomes no seguinte formato: 
