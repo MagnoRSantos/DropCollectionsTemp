@@ -17,14 +17,21 @@ db.getSiblingDB('admin').createUser(
 
 # Informações das pastas e arquivos
 
-Arquivo listCollectionsTemp.py - Script usado para listar nos databases do mongodb (db_EEEEE) as collections que com nomes no seguinte formato: 
+# Arquivo listCollectionsTemp.py
+Script usado para listar nos databases do mongodb (db_EEEEE) as collections que com nomes no seguinte formato: 
 Exemplo: Import_e6ddd067-db8c-44fd-8db7-ab71adf80931 (Essas coleções seriam temporárias e precisam ser removidas)
 
-Arquivo dropCollectionsTemp.py - Script usado para ler as collections temporárias obtidas no processo anterior (listCollectionsTemp.py) e realizar a remoção dessas coleções, está em scripts separados pois a aplicação pode estar fazendo uso da coleção por isso só pode ser removido após determinado tempo, por isso motivo primeiro coleto os nomes das coleções, armazeno em um csv junto ao nome do database ao qual ela pertence e depois de um determiado tempo que pode ser 1, 2h ou mais eu rodo o script "dropCollectionsTemp.py" que irá ler esse CSV e realizar a execução das instruções de remoção da coleção, caso ela exista ainda nos databases.
 
-Pasta Log - Guarda os logs de listagem das coleções e log de remoção das coleções
+# Arquivo dropCollectionsTemp.py
+Script usado para ler as collections temporárias obtidas no processo anterior (listCollectionsTemp.py) e realizar a remoção dessas coleções, está em scripts separados pois a aplicação pode estar fazendo uso da coleção por isso só pode ser removido após determinado tempo, por isso motivo primeiro coleto os nomes das coleções, armazeno em um csv junto ao nome do database ao qual ela pertence e depois de um determiado tempo que pode ser 1, 2h ou mais eu rodo o script "dropCollectionsTemp.py" que irá ler esse CSV e realizar a execução das instruções de remoção da coleção, caso ela exista ainda nos databases.
 
-Pasta ScriptsTemp - Pasta que fica armazenado o CSV gerado pelo scrip "listCollectionsTemp.py"
+
+# Pasta Log
+Guarda os logs de listagem das coleções e log de remoção das coleções
+
+
+# Pasta ScriptsTemp
+Pasta que fica armazenado o CSV gerado pelo scrip "listCollectionsTemp.py"
 
 
 # Exemplo de agendamento de execução pelo crontab no Linux
