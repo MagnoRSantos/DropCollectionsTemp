@@ -1,4 +1,4 @@
-# -*- coding: cp1252 -*-
+# -*- coding: utf-8 -*-
 
 # Script criado para listar as collections temporarias no mongodb.
 # Os databases sao os db_EEEEE apenas.
