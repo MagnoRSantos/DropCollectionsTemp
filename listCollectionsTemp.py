@@ -46,9 +46,13 @@ def gravaCsv(strCsv, strAcao):
         # apenas cria o arquivo csv vazio
         with io.open(tempfile, strAcao, encoding='utf-8') as f:
             pass 
-    else:
+    elif strAcao == 'a':
         with io.open(tempfile, strAcao, encoding='utf-8') as f:
             f.write(str(strCsv) + '\n')
+    else: 
+        #msg = 'Parâmetro [{0}] inválido !!!'.format(strAcao)
+        #print(msg)
+        pass
 
 
 # Lista os databases no mongodb
@@ -122,7 +126,7 @@ def verificaCsv():
 
                 if re.search("^db_", dbname) and (len(dbname) == 8) and (dbname.find('query') == -1) and (dbname.find('model') == -1):
                     if re.search("^Import_", collTemp) and (len(collTemp) > 40):
-                        msg = msg + "{0},{1}\n".format(dbname, collTemp)
+                        msg = msg + "{0},{1}".format(dbname, collTemp)
 
     else:
         msg = 'Nenhuma collection temporaria coletada no processo !!!'
