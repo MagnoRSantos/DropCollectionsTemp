@@ -142,9 +142,6 @@ def executaDropCollection(v_ListCollection):
                 
                 #print(retornoDrop)
 
-                
-
-
     except Exception as e:
         print("Error: %s" % e)
         msg = e
