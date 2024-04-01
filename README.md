@@ -25,6 +25,10 @@ Exemplo: Import_e6ddd067-db8c-44fd-8db7-ab71adf80931 (Essas coleções seriam te
 Script usado para ler as collections temporárias obtidas no processo anterior (listCollectionsTemp.py) e realizar a remoção dessas coleções, está em scripts separados pois a aplicação pode estar fazendo uso da coleção por isso só pode ser removido após determinado tempo, por isso motivo primeiro coleto os nomes das coleções, armazeno em um csv junto ao nome do database ao qual ela pertence e depois de um determiado tempo que pode ser 1, 2h ou mais eu rodo o script "dropCollectionsTemp.py" que irá ler esse CSV e realizar a execução das instruções de remoção da coleção, caso ela exista ainda nos databases.
 
 
+**Arquivo removeLogAntigo.py**:
+Script usado para remoção dos arquivos de logs gerados e sem uso a mais de XX dias, exemplo acima de 10 dias.
+
+
 **Pasta Log**: 
 Guarda os logs de listagem das coleções e log de remoção das coleções
 
