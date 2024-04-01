@@ -16,7 +16,7 @@ now = time.time()
 ## Funcao de remocao dos logs
 def removeLogs(days):
     for filename in os.listdir(dirlogfile):
-        print(filename)
+        #print(filename)
         if os.path.getmtime(os.path.join(dirlogfile, filename)) < now - days * 86400:
             if os.path.isfile(os.path.join(dirlogfile, filename)):
                 print(os.path.join(dirlogfile, filename))
