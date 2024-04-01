@@ -158,11 +158,11 @@ if __name__ == "__main__":
     msg = '*****Expurgo - Exec Collection Temp MongoDB***** Inicio: ' + datahora
     gravaLog(msg)
 
-    #Limpeza de logs antigos
+    # Limpeza de logs antigos
     diasRemover = 10
     msg = 'Removendo logs acima de {0} dias do diretório: [{1}]'.format(diasRemover, dirlogfile)
     gravaLog(msg)
-    removeLogs(1)
+    removeLogs(diasRemover)
     
     # chamada da funcao principal
     lerCsv()
