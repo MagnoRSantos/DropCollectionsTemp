@@ -12,6 +12,7 @@ import os
 from pymongo import MongoClient
 import dotenv
 from datetime import datetime
+from removeLogAntigo import removeLogs
 #import sys
 
 ## Carrega os valores do .env
@@ -156,6 +157,12 @@ if __name__ == "__main__":
     datahora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     msg = '*****Expurgo - Exec Collection Temp MongoDB***** Inicio: ' + datahora
     gravaLog(msg)
+
+    #Limpeza de logs antigos
+    diasRemover = 10
+    msg = 'Removendo logs acima de {0} dias do diretório: [{1}]'.format(diasRemover, dirlogfile)
+    gravaLog(msg)
+    removeLogs(1)
     
     # chamada da funcao principal
     lerCsv()
