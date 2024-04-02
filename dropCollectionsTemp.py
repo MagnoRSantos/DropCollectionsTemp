@@ -159,7 +159,7 @@ if __name__ == "__main__":
     gravaLog(msg)
 
     # Limpeza de logs antigos
-    diasRemover = 10
+    diasRemover = 1
     msg = 'Removendo logs acima de {0} dias do diretório: [{1}]'.format(diasRemover, dirlogfile)
     gravaLog(msg)
     removeLogs(diasRemover)
