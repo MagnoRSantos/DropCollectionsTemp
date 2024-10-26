@@ -8,12 +8,10 @@
 import re
 import io
 import os
-#import csv
 from pymongo import MongoClient
 import dotenv
 from datetime import datetime
 from removeLogAntigo import removeLogs
-#import sys
 
 ## Carrega os valores do .env
 dotenv.load_dotenv()
@@ -28,6 +26,15 @@ datahoraLog    = datetime.now().strftime('%Y-%m-%d')
 dirlogfile = os.path.join(dirapp, "Log")
 logfile = os.path.join(dirlogfile, "Log_ExecDropCollectionsTemp_" + datahoraLog + ".log")
 
+## funcao para verificar os valores do dotenv
+def getValueEnv(valueEnv):
+    v_valueEnv = os.getenv(valueEnv)
+    
+    if not v_valueEnv:
+        msgLog = "Variável de ambiente '{0}' não encontrada.".format(valueEnv)
+        gravaLog(msgLog)
+
+    return v_valueEnv
 
 ##cria os diretórios se não existirem
 if not os.path.exists(dirscript):
@@ -68,7 +75,7 @@ def lerCsv():
                         dbname   = str(listcollectionAux[0])
                         colltemp = str(listcollectionAux[1])
 
-                        if re.search("^db_", dbname) and (len(dbname) == 8) and (dbname.find('query') == -1) and (dbname.find('model') == -1):
+                        if re.search("^dat_", dbname) and (len(dbname) == 9) and (dbname.find('query') == -1) and (dbname.find('model') == -1):
                             if re.search("^Import_", colltemp) and (len(colltemp) > 40):
                                 listcollectionFinal.append(listcollectionAux)
                                 #msg = "db.getSiblingDB(\'" + dbname + "\').getCollection(\'" + colltemp + "\').drop();"
@@ -102,10 +109,10 @@ def executaDropCollection(v_ListCollection):
 
     try:
 
-        DBUSERNAME = os.getenv("USERNAME_MONGODB")
-        DBPASSWORD = os.getenv("PASSWORD_MONGODB")
-        MONGO_HOST = os.getenv("SERVER_MONGODB")
-        DBAUTHDB   = os.getenv("DBAUTHDB_MONGODB")
+        DBUSERNAME = getValueEnv("USERNAME_MONGODB")
+        DBPASSWORD = getValueEnv("PASSWORD_MONGODB")
+        MONGO_HOST = getValueEnv("SERVER_MONGODB")
+        DBAUTHDB   = getValueEnv("DBAUTHDB_MONGODB")
 
         connstr = 'mongodb://' + DBUSERNAME + ':' + DBPASSWORD + '@' + MONGO_HOST + '/' + DBAUTHDB
 
@@ -148,12 +155,9 @@ def executaDropCollection(v_ListCollection):
         msg = e
         gravaLog(msg)
         
-
-
-#inicio da aplicacao
-if __name__ == "__main__":
-    
-    # grava inicio do log
+## funcao inicial
+def main():
+        # grava inicio do log
     datahora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     msg = '*****Expurgo - Exec Collection Temp MongoDB***** Inicio: ' + datahora
     gravaLog(msg)
@@ -172,3 +176,8 @@ if __name__ == "__main__":
     msg = '*****Expurgo - Exec Collection Temp MongoDB***** Fim: ' + datahora + '\n'
     gravaLog(msg)
 
+#inicio da aplicacao
+if __name__ == "__main__":
+    
+    ## chamada da funcao inicial
+    main()
