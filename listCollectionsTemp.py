@@ -11,7 +11,6 @@ import os
 from pymongo import MongoClient
 import dotenv
 from datetime import datetime
-#import sys
 
 ## Carrega os valores do .env
 dotenv.load_dotenv()
@@ -25,6 +24,16 @@ tempfile = os.path.join(dirtemp, "collectionsTemp.csv")
 datahoraLog    = datetime.now().strftime('%Y-%m-%d')
 dirlogfile = os.path.join(dirapp, "Log")
 logfile = os.path.join(dirlogfile, "Log_ListDropCollectionsTemp_" + datahoraLog + ".log")
+
+## funcao para verificar os valores do dotenv
+def getValueEnv(valueEnv):
+    v_valueEnv = os.getenv(valueEnv)
+    
+    if not v_valueEnv:
+        msgLog = "Variável de ambiente '{0}' não encontrada.".format(valueEnv)
+        gravaLog(msgLog)
+
+    return v_valueEnv
 
 
 ##cria os diretórios se não existirem
@@ -63,10 +72,10 @@ def listarDbsCollTemp():
 
     try:
        
-        DBUSERNAME = os.getenv("USERNAME_MONGODB")
-        DBPASSWORD = os.getenv("PASSWORD_MONGODB")
-        MONGO_HOST = os.getenv("SERVER_MONGODB")
-        DBAUTHDB   = os.getenv("DBAUTHDB_MONGODB")
+        DBUSERNAME = getValueEnv("USERNAME_MONGODB")
+        DBPASSWORD = getValueEnv("PASSWORD_MONGODB")
+        MONGO_HOST = getValueEnv("SERVER_MONGODB")
+        DBAUTHDB   = getValueEnv("DBAUTHDB_MONGODB")
         
         #client = MongoClient('mongodb://user:pwd@127.0.0.1:27017/') #localhost
         connstr = 'mongodb://' + DBUSERNAME + ':' + DBPASSWORD + '@' + MONGO_HOST + '/' + DBAUTHDB
@@ -81,7 +90,7 @@ def listarDbsCollTemp():
             for dbname in cursor:
 
                 # verifica se o database eh db_xxxxx (xxxxx = codigo da empresa)
-                if re.search("^db_", dbname) and (len(dbname) == 8) and (dbname.find('query') == -1) and (dbname.find('model') == -1):
+                if re.search("^dat_", dbname) and (len(dbname) == 9) and (dbname.find('query') == -1) and (dbname.find('model') == -1):
                     dbaux = client[dbname]
                     collectionsTemp = dbaux.list_collection_names()
 
@@ -93,7 +102,7 @@ def listarDbsCollTemp():
                             #if (len(msgStr) >= 96):
                             #print(msgStr)
                             msg = "{0},{1}".format(dbname, collTemp)
-                            #print(msg)
+                            print(msg)
                             gravaLog(msg)
                             gravaCsv(msg, 'a')
 
@@ -134,16 +143,13 @@ def verificaCsv():
     
     return msg
 
-
-
-#inicio da aplicacao
-if __name__ == "__main__":
-    
+## funcao inicial
+def main():
     # grava inicio do log
     datahora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     msg = '*****Expurgo - List Collection Temp MongoDB***** Inicio: ' + datahora
     gravaLog(msg)
-    
+
     # chamada da funcao principal
     listarDbsCollTemp()
 
@@ -154,3 +160,9 @@ if __name__ == "__main__":
     datahora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     msg = '*****Expurgo - List Collection Temp MongoDB***** Fim: ' + datahora + '\n'
     gravaLog(msg)
+
+#inicio da aplicacao
+if __name__ == "__main__":
+    
+    ## chamada da funcao inicial
+    main()
